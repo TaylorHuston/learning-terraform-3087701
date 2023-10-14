@@ -29,7 +29,7 @@ module "blog_vpc" {
   }
 }
 
-module "autoscaling" {
+module "blog_autoscaling" {
   source  = "terraform-aws-modules/autoscaling/aws"
   version = "7.1.0"
   
@@ -49,7 +49,7 @@ module "blog_alb" {
   source  = "terraform-aws-modules/alb/aws"
   version = "~> 8.0"
 
-  name = "blog-alb"
+  name = "blog_alb"
 
   load_balancer_type = "application"
 
@@ -84,7 +84,7 @@ module "blog_sg" {
   version = "5.1.0"
   name = "blog_new"
 
-  vpc_id = module.blog_vpc.public_subnets[0]
+   vpc_id  = module.blog_vpc.vpc_id
 
   ingress_rules = ["http-80-tcp","https-443-tcp"]
   ingress_cidr_blocks = ["0.0.0.0/0"]
